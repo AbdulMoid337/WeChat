@@ -1,24 +1,24 @@
 import { StreamChat } from "stream-chat";
 import { clerkClient } from "@clerk/nextjs/server";
 
-const api_key = "rpzqwzz3cxmn";
-const api_secret =
-  "zzvqchtevfpq96abfpzewueezk7f5rc88gyevg2g3jvz6ch4zrqsu3xmegre58ss";
-// const user_id = "user_2rUKxPsKtE6MxUv78phcF0MHY4Z";
+// **Use environment variables for API key and secret (replace with actual names)**
+const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY;
+const apiSecret = process.env.NEXT_PUBLIC_STREAM_CHAT_API_SECRET;
+
+function capitalize(str) {
+  if (typeof str !== "string" || str.length === 0) {
+    return str; // Return original if not a string or empty
+  }
+
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 export async function POST(request) {
-  const serverClient = StreamChat.getInstance(api_key, api_secret);
+  const serverClient = StreamChat.getInstance(apiKey, apiSecret);
   const user = await request.json();
 
-  function capitalize(str) {
-    if (typeof str !== "string" || str.length === 0) {
-      return str; // Return original if not a string or empty
-    }
-
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
   // Create User Token
   const token = serverClient.createToken(user.data.id);
-  console.log(" a new user created", token);
 
   const client = await clerkClient();
   await serverClient.upsertUser({ id: user.data.id });
@@ -28,6 +28,7 @@ export async function POST(request) {
       token: token,
     },
   });
+
   const slugs = [
     "javascript-new",
     "python-new",
@@ -48,14 +49,21 @@ export async function POST(request) {
     "kubernetes-new",
     "webpack-new",
   ];
+
   slugs.forEach(async (item) => {
     const channel = serverClient.channel("messaging", item, {
       image: "https://getstream.io/random_png/?name=react",
       name: capitalize(item),
       created_by_id: user.data.id,
     });
-    await channel.create()
-    channel.addMembers([user.data.id])
+
+    try {
+      await channel.create();
+      await serverClient.addMembers(channel.id, [user.data.id]);
+    } catch (error) {
+      console.error(`Failed to create or add member to channel ${item}:`, error);
+    }
   });
+
   return Response.json({ message: "The route is working" });
 }

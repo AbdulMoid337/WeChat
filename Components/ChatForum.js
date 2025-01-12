@@ -23,7 +23,7 @@ function capitalize(str) {
 }
 
 const ChatForum = ({ clerkUser, slug }) => {
-  const apiKey = "rpzqwzz3cxmn";
+  const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY;
   const userId = clerkUser.id;
   const userName = clerkUser.name;
   const userToken = clerkUser.token;
@@ -51,7 +51,7 @@ const ChatForum = ({ clerkUser, slug }) => {
 
     setChannel(channel);
     channel.addMembers([userId])
-  }, [client]);
+  }, [client , slug, userId]);
 
   if (!client) return <div>Setting up client & connection...</div>;
 
