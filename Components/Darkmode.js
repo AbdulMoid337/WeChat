@@ -14,46 +14,40 @@ const Darkmode = () => {
         document.documentElement.classList.remove("dark");
       }
     }, [isDarkMode]);
+    
   return (
-    <>
-      <div>
-        <div className="absolute top-4 right-4 flex items-center space-x-4">
-          <p className="text-lg font-medium text-gray-800 dark:text-gray-200">
-            
-          </p>
-          <label
-            className="relative inline-flex items-center cursor-pointer"
-            aria-label="Toggle Dark Mode"
-          >
-            <input
-              type="checkbox"
-              className="sr-only peer"
-              checked={isDarkMode}
-              onChange={toggle}
-            />
-            <div className="w-14 h-8 bg-gray-300 rounded-full peer-checked:bg-gray-700 transition-colors duration-300"></div>
+    <div className="z-10">
+      <label
+        className="relative inline-flex items-center cursor-pointer"
+        aria-label="Toggle Dark Mode"
+      >
+        <input
+          type="checkbox"
+          className="sr-only peer"
+          checked={isDarkMode}
+          onChange={toggle}
+        />
+        <div className="w-14 h-8 bg-gray-300 rounded-full peer-checked:bg-gray-700 transition-colors duration-300"></div>
 
-            <div
-              className={`absolute left-1 top-1 w-6 h-6 bg-white dark:bg-yellow-400 rounded-full shadow-md 
-                          transform peer-checked:translate-x-6 transition-transform duration-300`}
-            ></div>
+        <div
+          className={`absolute left-1 top-1 w-6 h-6 bg-white dark:bg-yellow-400 rounded-full shadow-md 
+                      transform peer-checked:translate-x-6 transition-transform duration-300`}
+        ></div>
 
-            <FaMoon
-              className={`absolute left-2 top-2 text-gray-500 dark:text-gray-200 transition-opacity duration-300 ${
-                isDarkMode ? "opacity-100" : "opacity-0"
-              }`}
-              size={16}
-            />
-            <FaSun
-              className={`absolute right-2 top-2 text-yellow-500 transition-opacity duration-300 ${
-                isDarkMode ? "opacity-0" : "opacity-100"
-              }`}
-              size={16}
-            />
-          </label>
-        </div>
-      </div>
-    </>
+        <FaMoon
+          className={`absolute left-2 top-2 text-gray-500 dark:text-gray-200 transition-opacity duration-300 ${
+            isDarkMode ? "opacity-100" : "opacity-0"
+          }`}
+          size={16}
+        />
+        <FaSun
+          className={`absolute right-2 top-2 text-yellow-500 transition-opacity duration-300 ${
+            isDarkMode ? "opacity-0" : "opacity-100"
+          }`}
+          size={16}
+        />
+      </label>
+    </div>
   )
 }
 
