@@ -50,22 +50,30 @@ const ChatForum = ({ clerkUser, slug }) => {
     });
 
     setChannel(channel);
-    channel.addMembers([userId])
-  }, [client , slug, userId]);
+    // Remove this line as it's causing the permission error
+    // channel.addMembers([userId])
+  }, [client, slug, userId]);
 
-  if (!client) return <div>Setting up client & connection...</div>;
+  if (!client) return (
+    <div className="flex items-center justify-center h-64">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      <p className="ml-3 text-gray-600">Setting up chat connection...</p>
+    </div>
+  );
 
   return (
-    <Chat client={client}>
-      <Channel channel={channel}>
-        <Window>
-          <ChannelHeader />
-          <MessageList />
-          <MessageInput />
-        </Window>
-        <Thread />
-      </Channel>
-    </Chat>
+    <div className="chat-container h-[80vh] rounded-lg shadow-lg">
+      <Chat client={client}>
+        <Channel channel={channel}>
+          <Window>
+            <ChannelHeader />
+            <MessageList />
+            <MessageInput />
+          </Window>
+          <Thread />
+        </Channel>
+      </Chat>
+    </div>
   );
 };
 
