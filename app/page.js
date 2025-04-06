@@ -161,6 +161,30 @@ export default function Home() {
         </section>
       </section>
     </main>
+    
+    {/* Footer Section */}
+    <footer className="bg-gray-800 text-white py-8 mt-12">
+      <div className="container mx-auto px-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <h3 className="text-xl font-bold mb-4">WeChat</h3>
+            <p className="text-gray-300">Connect with friends and family in real-time with our modern chat application.</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-bold mb-4">Quick Links</h3>
+            <ul className="space-y-2">
+              <li><a href="/" className="text-gray-300 hover:text-white transition-colors">Home</a></li>
+              <li><a href="/forums" className="text-gray-300 hover:text-white transition-colors">Forums</a></li>
+              <li><a href="/chat" className="text-gray-300 hover:text-white transition-colors">UserChat</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="border-t border-gray-700 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-300">© 2023 WeChat. All rights reserved.</p>
+          <p className="text-gray-300 mt-2 md:mt-0">Created by <span className="font-bold text-white">Abdul Moid</span></p>
+        </div>
+      </div>
+    </footer>
     </>
   );
 }
